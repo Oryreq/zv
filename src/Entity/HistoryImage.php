@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\HistoryContent\HistoryContent;
 use App\Repository\HistoryImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;

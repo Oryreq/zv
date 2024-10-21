@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Entity\HistoryContent;
+namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use App\Entity\ContentType;
-use App\Entity\HistoryContent\Api\GetContentByType;
-use App\Entity\HistoryImage;
+use ApiPlatform\Metadata\Link;
 use App\Repository\HistoryContentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -21,16 +19,19 @@ use Symfony\Component\Serializer\Attribute\Groups;
     operations: [
         new Get(normalizationContext: ['groups' => 'content:item']),
         new GetCollection(normalizationContext: ['groups' => 'content:list']),
-        #new Get(uriTemplate: 'history/type/{type}/{id}',  normalizationContext: ['groups' => 'content:typed_item']),
+
         new GetCollection(
-            uriTemplate: 'history/{id}',
-            routeName: 'rwar',
-            #normalizationContext: ['groups' => 'content:typed_list'],
-            controller: 'App\Controller\HistoryContent\GetContentByType'),
-        #new Get(uriTemplate: 'history/type/heroes/{id}',  normalizationContext: ['groups' => 'content:heroes_item']),
-        #new GetCollection(uriTemplate: 'history/type/heroes',  normalizationContext: ['groups' => 'content:heroes_list']),
-        #new Get(uriTemplate: 'history/type/harovsk/{id}', normalizationContext: ['groups' => 'content:harovsk_item']),
-        #new GetCollection(uriTemplate: 'history/type/harovsk',  normalizationContext: ['groups' => 'content:harovsk_list']),
+            uriTemplate: 'history/{contentType}',
+            uriVariables: [
+                'contentType' => new Link(
+                    identifiers: ['apiResource'],
+                    fromClass: ContentType::class,
+                    toProperty: 'type',
+                    description: 'Type of history content: [\'heroes\', \'harovsk\']'
+                )
+            ],
+            normalizationContext: ['groups' => 'content:list'],
+        ),
     ],
     paginationEnabled: false,
 )]
@@ -39,19 +40,19 @@ class HistoryContent
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['content:list', 'content:item', 'content:typed_item', 'content:typed_list'])]
+    #[Groups(['content:list', 'content:item'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: ContentType::class, inversedBy: 'historyContents')]
-    #[Groups(['content:list', 'content:item', 'content:typed_item', 'content:typed_list'])]
+    #[Groups(['content:list', 'content:item'])]
     private ?ContentType $type = null;
 
     #[ORM\OneToMany(targetEntity: HistoryImage::class, mappedBy: 'historyContent', cascade: ['persist'], orphanRemoval: true)]
-    #[Groups(['content:list', 'content:item', 'content:typed_item', 'content:typed_list'])]
+    #[Groups(['content:list', 'content:item'])]
     private Collection $images;
 
     #[ORM\Column(length: 2048)]
-    #[Groups(['content:list', 'content:item', 'content:typed_item', 'content:typed_list'])]
+    #[Groups(['content:list', 'content:item'])]
     private ?string $description = null;
 
 

@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class IndexController extends AbstractController
 {
-    #[Route('/ttt', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(): Response
     {
         return $this->redirectToRoute('admin');

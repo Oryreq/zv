@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Entity\HistoryContent\HistoryContent;
+use ApiPlatform\Metadata\ApiProperty;
 use App\Repository\ContentTypeRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,11 +15,11 @@ class ContentType
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['content:list', 'content:item', 'content:typed_item', 'content:typed_list'])]
+    #[Groups(['content:list', 'content:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['content:list', 'content:item', 'content:typed_item', 'content:typed_list'])]
+    #[Groups(['content:list', 'content:item'])]
     private ?string $value = null;
 
     #[ORM\OneToMany(targetEntity: HistoryContent::class, mappedBy: 'type')]
@@ -27,7 +27,8 @@ class ContentType
 
 
     #[ORM\Column(length: 255)]
-    #[Groups(['content:list', 'content:item', 'content:typed_item', 'content:typed_list'])]
+    #[Groups(['content:list', 'content:item'])]
+    #[ApiProperty(identifier: true)]
     private ?string $apiResource = null;
 
 

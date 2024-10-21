@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\HistoryContent\HistoryContent;
+use App\Entity\HistoryContent;
 use App\Form\Type\HistoryImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
