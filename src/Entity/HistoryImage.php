@@ -18,12 +18,12 @@ class HistoryImage
     #[ORM\Column]
     private ?int $id = null;
 
-    #[UploadableField(mapping: 'products', fileNameProperty: 'name', size: 'size')]
+    #[UploadableField(mapping: 'images', fileNameProperty: 'name', size: 'size')]
     private ?File $file = null;
 
 
     #[ORM\Column(length: 255)]
-    private ?string $name;
+    private ?string $name = null;
 
     #[ORM\Column]
     private ?int $size = null;
@@ -31,7 +31,7 @@ class HistoryImage
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToOne(inversedBy: 'productImages')]
+    #[ORM\ManyToOne(targetEntity: HistoryContent::class, inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private ?HistoryContent $historyContent = null;
 

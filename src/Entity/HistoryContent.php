@@ -16,14 +16,10 @@ class HistoryContent
     #[ORM\Column]
     private ?int $id = null;
 
-    ##[ORM\Column(length: 255)]
     #[ORM\ManyToOne(targetEntity: ContentType::class, inversedBy: 'historyContents')]
     private ?ContentType $contentType = null;
 
-    /**
-     * @var Collection<int, HistoryImage>
-     */
-    #[ORM\OneToMany(targetEntity: HistoryImage::class, mappedBy: 'historyContent', orphanRemoval: true, cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: HistoryImage::class, mappedBy: 'historyContent', cascade: ['persist'], orphanRemoval: true)]
     private Collection $images;
 
     #[ORM\Column(length: 2048)]
