@@ -2,9 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\HistoryContent;
-use App\Entity\Member;
-use App\Entity\HistoryImage;
+use App\Entity\HistoryContent\HistoryContent;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -23,6 +21,12 @@ class DashboardController extends AbstractDashboardController
         return $this->render('admin/dashboard.html.twig');
     }
 
+    #[Route('/api', name: 'api')]
+    public function api(): Response
+    {
+        return $this->redirect('/api');
+    }
+
     public function configureDashboard(): Dashboard
     {
         return Dashboard::new()
@@ -38,6 +42,6 @@ class DashboardController extends AbstractDashboardController
         #yield MenuItem::linkToDashboard('Главный экран', 'fa-regular fa-image');
 
         yield MenuItem::section('Настройки');
-        #yield MenuItem::linkToDashboard('API', 'fa-solid fa-link');
+        yield MenuItem::linkToRoute('API', 'fa-solid fa-link', 'api');
     }
 }

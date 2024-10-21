@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\HistoryContent;
+use App\Entity\HistoryContent\HistoryContent;
 use App\Form\Type\HistoryImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -36,7 +36,7 @@ class HistoryContentCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
-        yield AssociationField::new('contentType', 'Тип')->setRequired(true);
+        yield AssociationField::new('type', 'Тип')->setRequired(true);
         // TO-DO сделать вывод картинок, а не имени файла
         yield CollectionField::new('images', 'Изображения')
                 ->setEntryType(HistoryImageType::class);

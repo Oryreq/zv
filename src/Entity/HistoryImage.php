@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use App\Entity\HistoryContent\HistoryContent;
 use App\Repository\HistoryImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
@@ -16,6 +18,7 @@ class HistoryImage
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['content:list', 'content:item'])]
     private ?int $id = null;
 
     #[UploadableField(mapping: 'images', fileNameProperty: 'name', size: 'size')]
@@ -23,6 +26,7 @@ class HistoryImage
 
 
     #[ORM\Column(length: 255)]
+    #[Groups(['content:list', 'content:item'])]
     private ?string $name = null;
 
     #[ORM\Column]
