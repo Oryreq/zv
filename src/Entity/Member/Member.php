@@ -50,51 +50,65 @@ class Member
     #[Groups(['member:list', 'member:item'])]
     private ?int $id = null;
 
+
     #[ORM\ManyToOne(targetEntity: MemberType::class)]
     #[Groups(['member:list', 'member:item'])]
     private ?MemberType $type = null;
+
 
     #[ORM\Column(length: 255)]
     #[Groups(['member:list', 'member:item'])]
     private ?string $firstName = null;
 
+
     #[ORM\Column(length: 255)]
     #[Groups(['member:list', 'member:item'])]
     private ?string $lastName = null;
+
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Groups(['member:list', 'member:item'])]
     private ?string $patronymic = null;
 
+
     #[ORM\Column(length: 1275)]
     #[Groups(['member:list', 'member:item'])]
     private ?string $bio = null;
+
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     #[Groups(['member:list', 'member:item'])]
     private ?\DateTimeInterface $birthDate = null;
 
+
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     #[Groups(['member:list', 'member:item'])]
     private ?\DateTimeInterface $deathDate = null;
+
 
     #[ORM\OneToMany(targetEntity: MemberImage::class,  mappedBy: 'member', cascade: ['persist'], orphanRemoval: true)]
     #[Groups(['member:list', 'member:item'])]
     private Collection $images;
 
+
     #[ORM\OneToMany(targetEntity: MemberAudio::class,  mappedBy: 'member', cascade: ['persist'], orphanRemoval: true)]
     #[Groups(['member:list', 'member:item'])]
     private Collection $audios;
 
+
     #[ORM\OneToMany(targetEntity: MemberVideo::class,  mappedBy: 'member', cascade: ['persist'], orphanRemoval: true)]
     #[Groups(['member:list', 'member:item'])]
     private Collection $videos;
+
 
     #[ORM\OneToMany(targetEntity: MemberPoetry::class, mappedBy: 'member', cascade: ['persist'], orphanRemoval: true)]
     #[Groups(['member:list', 'member:item'])]
     private Collection $poetries;
 
 
+                    /*-------------------------------------------*
+                     *          Entity field accessors.          *
+                     *-------------------------------------------*/
     public function __construct()
     {
         $this->images = new ArrayCollection();
@@ -102,15 +116,12 @@ class Member
         $this->videos = new ArrayCollection();
     }
 
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getType(): ?MemberType
-    {
-        return $this->type;
-    }
 
     public function setType(?MemberType $type): static
     {
@@ -118,11 +129,11 @@ class Member
 
         return $this;
     }
-
-    public function getFirstName(): ?string
+    public function getType(): ?MemberType
     {
-        return $this->firstName;
+        return $this->type;
     }
+
 
     public function setFirstName(string $firstName): static
     {
@@ -130,11 +141,11 @@ class Member
 
         return $this;
     }
-
-    public function getLastName(): ?string
+    public function getFirstName(): ?string
     {
-        return $this->lastName;
+        return $this->firstName;
     }
+
 
     public function setLastName(string $lastName): static
     {
@@ -142,11 +153,11 @@ class Member
 
         return $this;
     }
-
-    public function getPatronymic(): ?string
+    public function getLastName(): ?string
     {
-        return $this->patronymic;
+        return $this->lastName;
     }
+
 
     public function setPatronymic(?string $patronymic): static
     {
@@ -154,11 +165,11 @@ class Member
 
         return $this;
     }
-
-    public function getBio(): ?string
+    public function getPatronymic(): ?string
     {
-        return $this->bio;
+        return $this->patronymic;
     }
+
 
     public function setBio(string $bio): static
     {
@@ -166,11 +177,11 @@ class Member
 
         return $this;
     }
-
-    public function getBirthDate(): ?\DateTimeInterface
+    public function getBio(): ?string
     {
-        return $this->birthDate;
+        return $this->bio;
     }
+
 
     public function setBirthDate(?\DateTimeInterface $birthDate): static
     {
@@ -178,11 +189,11 @@ class Member
 
         return $this;
     }
-
-    public function getDeathDate(): ?\DateTimeInterface
+    public function getBirthDate(): ?\DateTimeInterface
     {
-        return $this->deathDate;
+        return $this->birthDate;
     }
+
 
     public function setDeathDate(?\DateTimeInterface $deathDate): static
     {
@@ -190,12 +201,19 @@ class Member
 
         return $this;
     }
+    public function getDeathDate(): ?\DateTimeInterface
+    {
+        return $this->deathDate;
+    }
 
+
+                /*------------------------------------------------*
+                 *          Entity Media Type accessors.          *
+                 *------------------------------------------------*/
     public function getImages(): Collection
     {
         return $this->images;
     }
-
     public function addImage(MemberImage $image): static
     {
         if (!$this->images->contains($image)) {
@@ -205,7 +223,6 @@ class Member
 
         return $this;
     }
-
     public function removeImage(MemberImage $image): static
     {
         if ($this->images->removeElement($image)) {
@@ -218,38 +235,11 @@ class Member
         return $this;
     }
 
-    public function getAudios(): Collection
-    {
-        return $this->audios;
-    }
-
-    public function addAudio(MemberAudio $audio): static
-    {
-        if (!$this->audios->contains($audio)) {
-            $this->audios->add($audio);
-            $audio->setMember($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAudio(MemberAudio $audio): static
-    {
-        if ($this->audios->removeElement($audio)) {
-            // set the owning side to null (unless already changed)
-            if ($audio->getMember() === $this) {
-                $audio->setMember(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getVideos(): Collection
     {
         return $this->videos;
     }
-
     public function addVideo(MemberVideo $video): static
     {
         if (!$this->videos->contains($video)) {
@@ -259,7 +249,6 @@ class Member
 
         return $this;
     }
-
     public function removeVideo(MemberVideo $video): static
     {
         if ($this->videos->removeElement($video)) {
@@ -272,11 +261,37 @@ class Member
         return $this;
     }
 
+
+    public function getAudios(): Collection
+    {
+        return $this->audios;
+    }
+    public function addAudio(MemberAudio $audio): static
+    {
+        if (!$this->audios->contains($audio)) {
+            $this->audios->add($audio);
+            $audio->setMember($this);
+        }
+
+        return $this;
+    }
+    public function removeAudio(MemberAudio $audio): static
+    {
+        if ($this->audios->removeElement($audio)) {
+            // set the owning side to null (unless already changed)
+            if ($audio->getMember() === $this) {
+                $audio->setMember(null);
+            }
+        }
+
+        return $this;
+    }
+
+
     public function getPoetries(): Collection
     {
         return $this->poetries;
     }
-
     public function addPoetry(MemberPoetry $poetry): static
     {
         if (!$this->poetries->contains($poetry)) {
@@ -286,7 +301,6 @@ class Member
 
         return $this;
     }
-
     public function removePoetry(MemberPoetry $poetry): static
     {
         if ($this->poetries->removeElement($poetry)) {
@@ -299,6 +313,10 @@ class Member
         return $this;
     }
 
+
+                     /*---------------------------------*
+                      *           Crud actions          *
+                      *---------------------------------*/
     public function updatedAt(): DateTimeInterface
     {
         $timestamp = time();
@@ -306,6 +324,7 @@ class Member
         $dateTime = date($format, $timestamp);
         return DateTime::createFromFormat($format, $dateTime);
     }
+
 
     public function toString(): string
     {

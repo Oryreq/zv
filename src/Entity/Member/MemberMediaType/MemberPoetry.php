@@ -17,32 +17,35 @@ class MemberPoetry
     #[Groups(['member:list', 'member:item'])]
     private ?int $id = null;
 
+
     #[ORM\Column(length: 255)]
     #[Groups(['member:list', 'member:item'])]
     private ?string $title = null;
+
 
     #[ORM\Column(length: 255)]
     #[Groups(['member:list', 'member:item'])]
     private ?string $description = null;
 
+
     #[ORM\Column(length: 255)]
     #[Groups(['member:list', 'member:item'])]
     private ?string $text = null;
+
 
     #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'poetries')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Member $member = null;
 
 
+                    /*-------------------------------------------*
+                     *          Entity field accessors.          *
+                     *-------------------------------------------*/
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
 
     public function setTitle(?string $title): static
     {
@@ -50,11 +53,11 @@ class MemberPoetry
 
         return $this;
     }
-
-    public function getDescription(): ?string
+    public function getTitle(): ?string
     {
-        return $this->description;
+        return $this->title;
     }
+
 
     public function setDescription(?string $description): static
     {
@@ -62,11 +65,11 @@ class MemberPoetry
 
         return $this;
     }
-
-    public function getText(): ?string
+    public function getDescription(): ?string
     {
-        return $this->text;
+        return $this->description;
     }
+
 
     public function setText(?string $text): static
     {
@@ -74,11 +77,11 @@ class MemberPoetry
 
         return $this;
     }
-
-    public function getMember(): ?Member
+    public function getText(): ?string
     {
-        return $this->member;
+        return $this->text;
     }
+
 
     public function setMember(?Member $member): static
     {
@@ -86,6 +89,11 @@ class MemberPoetry
 
         return $this;
     }
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
 
     public function __toString(): string
     {

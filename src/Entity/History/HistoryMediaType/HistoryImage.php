@@ -21,6 +21,7 @@ class HistoryImage
     #[Groups(['content:list', 'content:item'])]
     private ?int $id = null;
 
+
     #[UploadableField(mapping: 'images', fileNameProperty: 'name', size: 'size')]
     private ?File $file = null;
 
@@ -29,21 +30,28 @@ class HistoryImage
     #[Groups(['content:list', 'content:item'])]
     private ?string $name = null;
 
+
     #[ORM\Column]
     private ?int $size = null;
 
+
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
 
     #[ORM\ManyToOne(targetEntity: History::class, inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private ?History $historyContent = null;
 
 
+                    /*-------------------------------------------*
+                     *          Entity field accessors.          *
+                     *-------------------------------------------*/
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     public function setFile(?File $file): self
     {
@@ -55,17 +63,16 @@ class HistoryImage
 
         return $this;
     }
-
     public function getFile(): ?File
     {
         return $this->file;
     }
 
+
     public function getName(): ?string
     {
         return $this->name;
     }
-
     public function setName(?string $name): static
     {
         $this->name = $name;
@@ -73,11 +80,11 @@ class HistoryImage
         return $this;
     }
 
+
     public function getSize(): ?int
     {
         return $this->size;
     }
-
     public function setSize(?int $size): static
     {
         $this->size = $size;
@@ -85,11 +92,11 @@ class HistoryImage
         return $this;
     }
 
+
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
     }
-
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
@@ -97,17 +104,18 @@ class HistoryImage
         return $this;
     }
 
+
     public function getHistoryContent(): ?History
     {
         return $this->historyContent;
     }
-
     public function setHistoryContent(?History $historyContent): static
     {
         $this->historyContent = $historyContent;
 
         return $this;
     }
+
 
     public function __toString(): string
     {

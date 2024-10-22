@@ -21,6 +21,7 @@ class MemberAudio
     #[Groups(['member:list', 'member:item'])]
     private ?int $id = null;
 
+
     #[UploadableField(mapping: 'member_audios', fileNameProperty: 'name', size: 'size')]
     private ?File $file = null;
 
@@ -29,23 +30,30 @@ class MemberAudio
     #[Groups(['member:list', 'member:item'])]
     private ?string $name = null;
 
+
     #[ORM\Column]
     #[Groups(['member:list', 'member:item'])]
     private ?int $size = null;
 
+
     #[ORM\Column(nullable: true)]
     #[Groups(['member:list', 'member:item'])]
     private ?\DateTimeImmutable $updatedAt = null;
+
 
     #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'audios')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Member $member = null;
 
 
+                    /*-------------------------------------------*
+                     *          Entity field accessors.          *
+                     *-------------------------------------------*/
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     public function setFile(?File $file): self
     {
@@ -57,16 +65,11 @@ class MemberAudio
 
         return $this;
     }
-
     public function getFile(): ?File
     {
         return $this->file;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
 
     public function setName(?string $name): static
     {
@@ -74,11 +77,11 @@ class MemberAudio
 
         return $this;
     }
-
-    public function getSize(): ?int
+    public function getName(): ?string
     {
-        return $this->size;
+        return $this->name;
     }
+
 
     public function setSize(?int $size): static
     {
@@ -86,11 +89,11 @@ class MemberAudio
 
         return $this;
     }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getSize(): ?int
     {
-        return $this->updatedAt;
+        return $this->size;
     }
+
 
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
@@ -98,11 +101,11 @@ class MemberAudio
 
         return $this;
     }
-
-    public function getMember(): ?Member
+    public function getUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->member;
+        return $this->updatedAt;
     }
+
 
     public function setMember(?Member $member): static
     {
@@ -110,6 +113,11 @@ class MemberAudio
 
         return $this;
     }
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
 
     public function __toString(): string
     {

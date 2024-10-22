@@ -29,17 +29,14 @@ class ContentType
     private ?string $apiResource = null;
 
 
-
-
+                    /*-------------------------------------------*
+                     *          Entity field accessors.          *
+                     *-------------------------------------------*/
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getValue(): ?string
-    {
-        return $this->value;
-    }
 
     public function setValue(string $value): static
     {
@@ -47,19 +44,24 @@ class ContentType
 
         return $this;
     }
-
-    public function __toString(): string
+    public function getValue(): ?string
     {
         return $this->value;
     }
 
+
+    public function setApiResource(?string $apiResource): void
+    {
+        $this->apiResource = $apiResource;
+    }
     public function getApiResource(): ?string
     {
         return $this->apiResource;
     }
 
-    public function setApiResource(?string $apiResource): void
+
+    public function __toString(): string
     {
-        $this->apiResource = $apiResource;
+        return $this->value;
     }
 }

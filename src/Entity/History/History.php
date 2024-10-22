@@ -60,32 +60,30 @@ class History
     private ?string $description = null;
 
 
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): void
-    {
-        $this->description = $description;
-    }
-
-
+                    /*-------------------------------------------*
+                     *          Entity field accessors.          *
+                     *-------------------------------------------*/
     public function __construct()
     {
         $this->images = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getType(): ?ContentType
+
+    public function setDescription(?string $description): void
     {
-        return $this->type;
+        $this->description = $description;
     }
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
 
     public function setType(?ContentType $type): static
     {
@@ -93,12 +91,19 @@ class History
 
         return $this;
     }
+    public function getType(): ?ContentType
+    {
+        return $this->type;
+    }
 
+
+                /*------------------------------------------------*
+                 *          Entity Media Type accessors.          *
+                 *------------------------------------------------*/
     public function getImages(): Collection
     {
         return $this->images;
     }
-
     public function addImage(HistoryImage $image): static
     {
         if (!$this->images->contains($image)) {
@@ -108,7 +113,6 @@ class History
 
         return $this;
     }
-
     public function removeImage(HistoryImage $image): static
     {
         if ($this->images->removeElement($image)) {

@@ -72,17 +72,22 @@ class MemberCrudController extends AbstractCrudController
                     ->hideOnForm()
                     ->setTimezone('Europe/Moscow');
 
+
+
         yield FormField::addTab('Аудио');
         yield CollectionField::new('audios', 'Аудио')
                     ->setEntryType(MemberAudioType::class)->hideOnIndex();
+
+
 
         yield FormField::addTab('Видео');
         yield CollectionField::new('videos', 'Видео')
                     ->setEntryType(MemberVideoType::class)->hideOnIndex();
 
+
+
         yield FormField::addTab('Поэзия');
         yield CollectionField::new('poetries', 'Видео')
                     ->setEntryType(MemberPoetryType::class)->hideOnIndex();
     }
-
 }

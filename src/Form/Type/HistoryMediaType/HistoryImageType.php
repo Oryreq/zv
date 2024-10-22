@@ -3,46 +3,32 @@
 namespace App\Form\Type\HistoryMediaType;
 
 use App\Entity\History\HistoryMediaType\HistoryImage;
-use Doctrine\Common\Collections\ArrayCollection;
+use App\Form\Type\Service\FormHelpBuilder;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Service\Attribute\Required;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 
 class HistoryImageType extends AbstractType
 {
+    #[Required]
+    public FormHelpBuilder $formHelpBuilder;
+
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $styles = 'border-radius: 4px;
-                   background-color: #171717;
-                   color: #FF9A62;
-                   padding: 1px 5px 1px 5px;
-                   margin-left: 8px;
-                   text-align: center';
-
-        $extensionToHtml = function ($extension) use ($styles) {
-            return '<div style="' . $styles . '">' .$extension . '</div>';
-        };
-
-
-        $imageExtensions = new ArrayCollection(['*.jpg', '*.jpeg', '*.png', '*.jiff', '*.webp']);
-        $htmlExtensions = $imageExtensions
-                            ->map(function($extension) use (&$extensionToHtml) {
-                                return $extensionToHtml($extension);
-                            })
-                            ->reduce(function($accumulator, $value) {
-                                return $accumulator.''.$value;
-                            });
-
+        $imageExtensions = ['*.jpg', '*.jpeg', '*.png', '*.jiff', '*.webp'];
+        $helpHtmlForm =  $this->formHelpBuilder->buildHelpAsHtml($imageExtensions);
 
         $builder
             ->add('file', VichImageType::class, [
                 'label' => 'Изображение',
                 'empty_data' => '',
                 'allow_delete' => false,
-                'help' => '<div style="display: flex; text-align: center;">'. $htmlExtensions.'</div>',
+                'help' => $helpHtmlForm,
             ])
             ->add('name', TextType::class, [
                 'label' => 'Название',

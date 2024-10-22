@@ -17,9 +17,11 @@ class MemberType
     #[Groups(['member:list', 'member:item'])]
     private ?int $id = null;
 
+
     #[ORM\Column(length: 255)]
     #[Groups(['member:list', 'member:item'])]
     private ?string $name = null;
+
 
     #[ORM\Column(length: 255)]
     #[Groups(['member:list', 'member:item'])]
@@ -27,15 +29,14 @@ class MemberType
     private ?string $apiResource = null;
 
 
+                    /*-------------------------------------------*
+                     *          Entity field accessors.          *
+                     *-------------------------------------------*/
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
 
     public function setName(string $name): static
     {
@@ -43,20 +44,24 @@ class MemberType
 
         return $this;
     }
-
-    public function getApiResource(): ?string
+    public function getName(): ?string
     {
-        return $this->apiResource;
+        return $this->name;
     }
+
 
     public function setApiResource(?string $apiResource): void
     {
         $this->apiResource = $apiResource;
     }
+    public function getApiResource(): ?string
+    {
+        return $this->apiResource;
+    }
+
 
     public function __toString(): string
     {
         return $this->name;
     }
-
 }
