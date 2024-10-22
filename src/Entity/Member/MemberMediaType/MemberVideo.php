@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Member\MemberMediaType;
 
-use App\Repository\HistoryImageRepository;
+use App\Entity\Member\Member;
+use App\Repository\Member\MemberVideoRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Attribute\Groups;
@@ -10,33 +11,36 @@ use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
 
-#[ORM\Entity(repositoryClass: HistoryImageRepository::class)]
+#[ORM\Entity(repositoryClass: MemberVideoRepository::class)]
 #[Uploadable]
-class HistoryImage
+class MemberVideo
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['content:list', 'content:item'])]
+    #[Groups(['member:list', 'member:item'])]
     private ?int $id = null;
 
-    #[UploadableField(mapping: 'images', fileNameProperty: 'name', size: 'size')]
+    #[UploadableField(mapping: 'member_videos', fileNameProperty: 'name', size: 'size')]
     private ?File $file = null;
 
 
     #[ORM\Column(length: 255)]
-    #[Groups(['content:list', 'content:item'])]
+    #[Groups(['member:list', 'member:item'])]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Groups(['member:list', 'member:item'])]
     private ?int $size = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['member:list', 'member:item'])]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToOne(targetEntity: HistoryContent::class, inversedBy: 'images')]
+    #[ORM\ManyToOne(targetEntity: Member::class, inversedBy: 'videos')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?HistoryContent $historyContent = null;
+    private ?Member $member = null;
+
 
     public function getId(): ?int
     {
@@ -53,7 +57,6 @@ class HistoryImage
 
         return $this;
     }
-
 
     public function getFile(): ?File
     {
@@ -96,14 +99,14 @@ class HistoryImage
         return $this;
     }
 
-    public function getHistoryContent(): ?HistoryContent
+    public function getMember(): ?Member
     {
-        return $this->historyContent;
+        return $this->member;
     }
 
-    public function setHistoryContent(?HistoryContent $historyContent): static
+    public function setMember(?Member $member): static
     {
-        $this->historyContent = $historyContent;
+        $this->member = $member;
 
         return $this;
     }

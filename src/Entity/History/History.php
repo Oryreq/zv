@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\History;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
-use App\Repository\HistoryContentRepository;
+use App\Entity\History\HistoryMediaType\HistoryImage;
+use App\Repository\History\HistoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
 
-#[ORM\Entity(repositoryClass: HistoryContentRepository::class)]
+#[ORM\Entity(repositoryClass: HistoryRepository::class)]
 #[ApiResource(
     shortName: 'History',
     operations: [
@@ -35,7 +36,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
     ],
     paginationEnabled: false,
 )]
-class HistoryContent
+class History
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -43,17 +44,21 @@ class HistoryContent
     #[Groups(['content:list', 'content:item'])]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: ContentType::class, inversedBy: 'historyContents')]
+
+    #[ORM\ManyToOne(targetEntity: ContentType::class)]
     #[Groups(['content:list', 'content:item'])]
     private ?ContentType $type = null;
 
-    #[ORM\OneToMany(targetEntity: HistoryImage::class, mappedBy: 'historyContent', cascade: ['persist'], orphanRemoval: true)]
+
+    #[ORM\OneToMany(targetEntity: HistoryImage::class, mappedBy: 'historyContent', cascade: ['persist', 'remove'], orphanRemoval: true)]
     #[Groups(['content:list', 'content:item'])]
     private Collection $images;
+
 
     #[ORM\Column(length: 2048)]
     #[Groups(['content:list', 'content:item'])]
     private ?string $description = null;
+
 
 
     public function getDescription(): ?string
@@ -115,6 +120,4 @@ class HistoryContent
 
         return $this;
     }
-
-
 }

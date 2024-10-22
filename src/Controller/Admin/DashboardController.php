@@ -2,7 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\HistoryContent;
+use App\Entity\History\History;
+use App\Entity\Member\Member;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -36,8 +37,8 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        #yield MenuItem::linkToCrud('Участники', 'fa-solid fa-user', Member::class);
-        yield MenuItem::linkToCrud('История СВО / Харовск и СВО', 'fa-solid fa-map', HistoryContent::class);
+        yield MenuItem::linkToCrud('Участники', 'fa-solid fa-user', Member::class);
+        yield MenuItem::linkToCrud('История СВО / Харовск и СВО', 'fa-solid fa-map', History::class);
 
         #yield MenuItem::linkToDashboard('Главный экран', 'fa-regular fa-image');
 

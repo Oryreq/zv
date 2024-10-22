@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Form\Type;
+namespace App\Form\Type\MemberMediaType;
 
-use App\Entity\HistoryImage;
+use App\Entity\Member\MemberMediaType\MemberAudio;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 
-class HistoryImageType extends AbstractType
+class MemberAudioType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -23,26 +23,25 @@ class HistoryImageType extends AbstractType
                    text-align: center';
 
         $extensionToHtml = function ($extension) use ($styles) {
-            return '<div style="' . $styles . '">' .$extension . '</div>';
+            return '<div style="' . $styles . '">' . $extension . '</div>';
         };
 
-
-        $imageExtensions = new ArrayCollection(['*.jpg', '*.jpeg', '*.png', '*.jiff', '*.webp']);
-        $htmlExtensions = $imageExtensions
-                            ->map(function($extension) use (&$extensionToHtml) {
-                                return $extensionToHtml($extension);
-                            })
-                            ->reduce(function($accumulator, $value) {
-                                return $accumulator.''.$value;
-                            });
+        $audioExtensions = new ArrayCollection(['*.wav', '*.mp3', '*.mpeg']);
+        $htmlExtensions = $audioExtensions
+            ->map(function ($extension) use (&$extensionToHtml) {
+                return $extensionToHtml($extension);
+            })
+            ->reduce(function ($accumulator, $value) {
+                return $accumulator . '' . $value;
+            });
 
 
         $builder
-            ->add('file', VichImageType::class, [
-                'label' => 'Изображение',
+            ->add('file', VichFileType::class, [
+                'label' => 'Аудио',
                 'empty_data' => '',
                 'allow_delete' => false,
-                'help' => '<div style="display: flex; text-align: center;">'. $htmlExtensions.'</div>',
+                'help' => '<div style="display: flex; text-align: center;">' . $htmlExtensions . '</div>',
             ])
             ->add('name', TextType::class, [
                 'label' => 'Название',
@@ -53,7 +52,7 @@ class HistoryImageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => HistoryImage::class,
+            'data_class' => MemberAudio::class,
         ]);
     }
 }

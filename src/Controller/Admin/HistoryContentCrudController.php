@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\HistoryContent;
-use App\Form\Type\HistoryImageType;
+use App\Entity\History\History;
+use App\Form\Type\HistoryMediaType\HistoryImageType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -17,7 +17,7 @@ class HistoryContentCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return HistoryContent::class;
+        return History::class;
     }
 
     public function configureActions(Actions $actions): Actions

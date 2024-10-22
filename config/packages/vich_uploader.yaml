@@ -6,3 +6,21 @@ vich_uploader:
             uri_prefix: /images/history_content
             upload_destination: '%kernel.project_dir%/public/images/history_content'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+
+        member_images:
+            uri_prefix: /images/member_images
+            upload_destination: '%kernel.project_dir%/public/images/member_images'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        member_audios:
+            uri_prefix: /images/member_audios
+            upload_destination: '%kernel.project_dir%/public/images/member_audios'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        member_videos:
+            uri_prefix: /images/member_videos
+            upload_destination: '%kernel.project_dir%/public/images/member_videos'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        member_poetries:
+            uri_prefix: /images/member_poetries
+            upload_destination: '%kernel.project_dir%/public/images/member_poetries'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
