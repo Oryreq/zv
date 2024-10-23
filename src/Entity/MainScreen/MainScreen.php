@@ -58,9 +58,10 @@ class MainScreen
     {
         return $this->value1;
     }
-    public function setValue1(?string $value1): void
+    public function setValue1(?string $value1): self
     {
         $this->value1 = $value1;
+        return $this;
     }
 
 
@@ -68,9 +69,10 @@ class MainScreen
     {
         return $this->value2;
     }
-    public function setValue2(?string $value2): void
+    public function setValue2(?string $value2): self
     {
         $this->value2 = $value2;
+        return $this;
     }
 
 
@@ -78,8 +80,9 @@ class MainScreen
     {
         return $this->value3;
     }
-    public function setValue3(?string $value3): void
+    public function setValue3(?string $value3): self
     {
         $this->value3 = $value3;
+        return $this;
     }
 }

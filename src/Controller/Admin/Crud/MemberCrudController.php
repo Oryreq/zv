@@ -33,9 +33,6 @@ class MemberCrudController extends AbstractCrudController
         return $actions
             ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
                 return $action->setLabel('Создать участника');
-            })
-            ->update(Crud::PAGE_NEW, Action::SAVE_AND_RETURN, function (Action $action) {
-                return $action->linkToCrudAction('setUpdatedAt');
             });
     }
 
@@ -46,8 +43,7 @@ class MemberCrudController extends AbstractCrudController
             ->setEntityLabelInSingular('Участник')
             ->setEntityLabelInPlural('Участники')
             ->setPageTitle('new', 'Добавление участника')
-            ->setPageTitle('edit', 'Изменение участника')
-            ->setPageTitle('detail', fn (Member $member) => (string) $member);
+            ->setPageTitle('edit', 'Изменение участника');
     }
 
 
@@ -55,18 +51,19 @@ class MemberCrudController extends AbstractCrudController
     {
         yield FormField::addTab('Главная');
         yield IdField::new('id', 'ID')->hideOnForm();
-        yield AssociationField::new('type', 'Тип');
+        yield AssociationField::new('type', 'Тип')
+                        ->setRequired(true);
 
         yield TextField::new('lastName', 'Фамилия');
         yield TextField::new('firstName', 'Имя');
-        yield TextField::new('patronymic', 'Отчество')->setRequired(false);
+        yield TextField::new('patronymic', 'Отчество');
 
         yield TextEditorField::new('bio', 'Биография');
         yield CollectionField::new('images', 'Изображения')
                     ->setEntryType(MemberImageType::class);
 
-        yield DateField::new('birthDate', 'Дата рождения')->setRequired(false);
-        yield DateField::new('deathDate', 'Дата Смерти')->setRequired(false);
+        yield DateField::new('birthDate', 'Дата рождения');
+        yield DateField::new('deathDate', 'Дата Смерти');
 
         yield DateTimeField::new('updatedAt', 'Обновлено')
                     ->hideOnForm()

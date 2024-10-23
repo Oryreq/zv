@@ -10,9 +10,8 @@ use App\Entity\Member\MemberMediaType\MemberAudio;
 use App\Entity\Member\MemberMediaType\MemberImage;
 use App\Entity\Member\MemberMediaType\MemberPoetry;
 use App\Entity\Member\MemberMediaType\MemberVideo;
+use App\Entity\Traits\TimeStampableTrait;
 use App\Repository\Member\MemberRepository;
-use DateTime;
-use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -21,6 +20,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
 
 
 #[ORM\Entity(repositoryClass: MemberRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     shortName: 'Member',
     operations: [
@@ -44,6 +44,8 @@ use Symfony\Component\Serializer\Attribute\Groups;
 )]
 class Member
 {
+    use TimeStampableTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -114,6 +116,7 @@ class Member
         $this->images = new ArrayCollection();
         $this->audios = new ArrayCollection();
         $this->videos = new ArrayCollection();
+        $this->poetries = new ArrayCollection();
     }
 
 
@@ -317,15 +320,6 @@ class Member
                      /*---------------------------------*
                       *           Crud actions          *
                       *---------------------------------*/
-    public function updatedAt(): DateTimeInterface
-    {
-        $timestamp = time();
-        $format = 'Y-m-d H:i:s';
-        $dateTime = date($format, $timestamp);
-        return DateTime::createFromFormat($format, $dateTime);
-    }
-
-
     public function toString(): string
     {
         return $this->type.' '.$this->firstName . ' ' . $this->lastName.' '.$this->patronymic;
