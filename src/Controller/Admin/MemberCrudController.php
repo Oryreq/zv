@@ -87,7 +87,7 @@ class MemberCrudController extends AbstractCrudController
 
 
         yield FormField::addTab('Поэзия');
-        yield CollectionField::new('poetries', 'Видео')
+        yield CollectionField::new('poetries', 'Поэзия')
                     ->setEntryType(MemberPoetryType::class)->hideOnIndex();
     }
 }

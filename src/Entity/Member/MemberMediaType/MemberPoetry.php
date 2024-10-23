@@ -28,7 +28,7 @@ class MemberPoetry
     private ?string $description = null;
 
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 2048)]
     #[Groups(['member:list', 'member:item'])]
     private ?string $text = null;
 
