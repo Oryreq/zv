@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\Crud;
 
 use App\Entity\History\History;
 use App\Form\Type\HistoryMediaType\HistoryImageType;

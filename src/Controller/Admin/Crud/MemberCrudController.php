@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\Admin\Crud;
 
 use App\Entity\Member\Member;
 use App\Form\Type\MemberMediaType\MemberAudioType;
